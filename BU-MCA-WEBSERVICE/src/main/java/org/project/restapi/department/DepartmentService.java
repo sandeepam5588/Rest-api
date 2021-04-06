@@ -39,9 +39,9 @@ public class DepartmentService {
 		return "department name cant be altered";
 	}
 
-	public String deleteDepartment(String id) {
+	public String deleteDepartment(String name) {
 		try {
-		departmentRepository.deleteById(id);
+		    departmentRepository.deleteByName(name);
 		}catch(EmptyResultDataAccessException | InvalidDataAccessApiUsageException ex) {
 			return "record does not exist..!";
 		}

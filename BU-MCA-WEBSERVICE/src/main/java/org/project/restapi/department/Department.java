@@ -1,35 +1,77 @@
 package org.project.restapi.department;
 
+import java.util.List;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.project.restapi.courses.Course;
 
 @Entity
+@Table(name = "Department")
+@SecondaryTable(name = "DepartmentDetails", pkJoinColumns = @PrimaryKeyJoinColumn(name = "department_id"))
 public class Department {
 	
-	private String id;
 	@Id
+	private String id;
+	
+	@NotNull
+	@Size(min=2, message="Department Name should have atleast 2 characters")
+	@Column(name = "department_name")
 	private String name;
-	private int yearOfCommencement;
+	
+	@NotNull
+	@Column(name = "year", table ="DepartmentDetails")
+	private int year;
+	
+	@NotNull
+	@Column(name = "numberOfStudents", table ="DepartmentDetails")
 	private int numberOfStudents;
+	
+	@NotNull
+	@Column(name = "numberOfProfessors", table ="DepartmentDetails")
 	private int numberOfProfessors;
+	
+	@NotNull
+	@Column(name = "numberOfGuestFaculty", table ="DepartmentDetails")
 	private int numberOfGuestFaculty;
+	
+	@NotNull
+	@Column(name = "numberOfOfficeStaff", table ="DepartmentDetails")
 	private int numberOfOfficeStaff;
 	
+	@NotNull
+	@Column(name = "scheme", table ="DepartmentDetails")
+	private String scheme;
+	
+	@OneToMany(mappedBy = "dept") // mappedBy should not refer to class name
+	private List<Course> courses;
+		
 	public Department() {}
 
-	public Department(String id, String name, int yearOfCommencement, int numberOfStudents, int numberOfProfessors,
-			int numberOfGuestFaculty, int numberOfOfficeStaff) {
+	
+	public Department(String id, String name, int year, int numberOfStudents, int numberOfProfessors,
+			int numberOfGuestFaculty, int numberOfOfficeStaff, String scheme) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.yearOfCommencement = yearOfCommencement;
+		this.year = year;
 		this.numberOfStudents = numberOfStudents;
 		this.numberOfProfessors = numberOfProfessors;
 		this.numberOfGuestFaculty = numberOfGuestFaculty;
 		this.numberOfOfficeStaff = numberOfOfficeStaff;
+		this.scheme = scheme;
+	
 	}
+
+
 	public String getId() {
 		return id;
 	}
@@ -46,12 +88,12 @@ public class Department {
 		this.name = name;
 	}
 
-	public int getYearOfCommencement() {
-		return yearOfCommencement;
+	public int getYear() {
+		return year;
 	}
 
-	public void setYearOfCommencement(int yearOfCommencement) {
-		this.yearOfCommencement = yearOfCommencement;
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	public int getNumberOfStudents() {
@@ -86,13 +128,13 @@ public class Department {
 		this.numberOfOfficeStaff = numberOfOfficeStaff;
 	}
 
-	@Override
-	public String toString() {
-		return "Department [id=" + id + ", name=" + name + ", yearOfCommencement=" + yearOfCommencement
-				+ ", numberOfStudents=" + numberOfStudents + ", numberOfProfessors=" + numberOfProfessors
-				+ ", numberOfGuestFaculty=" + numberOfGuestFaculty + ", numberOfOfficeStaff=" + numberOfOfficeStaff
-				+ "]";
+	public String getScheme() {
+		return scheme;
 	}
-	
+
+	public void setScheme(String scheme) {
+		this.scheme = scheme;
+	}
+
 	
 }

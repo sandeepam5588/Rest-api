@@ -1,25 +1,30 @@
 package org.project.restapi.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class Subject {
+	
+	
+	@Column(name="subjectCode")
 	private String subjectCode;
+	
+	@Column(name="subjectName")
 	private String subjectName;
-	private int minimumMarks;
-	private int maximumMarks;
+	
+	@Column(name="marksObtained")
 	private int marksObtained;
+	
+	@Column(name="status")
 	private String status;
-	public Subject() {}
 	
-	
-	public Subject(String subjectCode, String subjectName, int minimumMarks, int maximumMarks,
-			int marksObtained, String status) {
+	public Subject() {};
+		
+	public Subject(String subjectCode, String subjectName, int marksObtained, String status) {
 		super();
 		this.subjectCode = subjectCode;
 		this.subjectName = subjectName;
-		this.minimumMarks = minimumMarks;
-		this.maximumMarks = maximumMarks;
 		this.marksObtained = marksObtained;
 		this.status = status;
 	}
@@ -35,18 +40,6 @@ public class Subject {
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
-	public int getMinimumMarks() {
-		return minimumMarks;
-	}
-	public void setMinimumMarks(int minimumMarks) {
-		this.minimumMarks = minimumMarks;
-	}
-	public int getMaximumMarks() {
-		return maximumMarks;
-	}
-	public void setMaximumMarks(int maximumMarks) {
-		this.maximumMarks = maximumMarks;
-	}
 	public int getMarksObtained() {
 		return marksObtained;
 	}
@@ -59,9 +52,6 @@ public class Subject {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	@Override
-	public String toString() {
-		return "Subject [subjectCode=" + subjectCode + ", subjectName=" + subjectName + ", minimumMarks=" + minimumMarks
-				+ ", maximumMarks=" + maximumMarks + ", marksObtained=" + marksObtained + ", status=" + status + "]";
-	}
+	
+
 }

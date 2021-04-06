@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -19,27 +20,45 @@ public class FacultyService {
 		return totalStaff;
 	}
 
-	public Optional<Faculty> getFaculty(String id) {
-		return facultyRepository.findById(id);
+	public Object getFaculty(String id) {
+		Optional<Faculty> singleFacultyRecord = facultyRepository.findById(id);
+		if(singleFacultyRecord.isPresent()) return singleFacultyRecord;
+		return "record not found";
 	}
 
-	public String addFaculty(Faculty faculty) {
-		facultyRepository.save(faculty);
-		return "record created successfully";
+	public boolean addFaculty(Faculty faculty) {
+		try {
+			if(facultyRepository.findById(faculty.getId()) == null)
+				facultyRepository.save(faculty);
+			else
+				throw new DataIntegrityViolationException("duplicate key");
+		} catch(DataIntegrityViolationException ex) {
+			return false;
+		}
+		return true;
 	}
 
-	public String updateFaculty(Faculty faculty, String id) {
-		facultyRepository.save(faculty);
-		return "record updated successfully";
+	public boolean updateFaculty(Faculty faculty, String id) {
+		Optional<Faculty> isRecordExist = facultyRepository.findById(id);
+		if(isRecordExist == null) {
+			return false;
+		}
+		
+		if(faculty.getId().equalsIgnoreCase(id)) {
+			facultyRepository.save(faculty);
+			return true;	
+		}
+		return false;
+		
 	}
 
-	public String deleteFaculty(String id) {
+	public boolean deleteFaculty(String id) {
 		try {
 			facultyRepository.deleteById(id);
 		} catch(EmptyResultDataAccessException ex) {
-			return "record does not exist..!";
+			return false;
 		}
-		return "record deleted successfully";
+		return true;
 		
 	}
 	

@@ -21,14 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentController {
 	@Autowired
 	private StudentService studentService;
+	
 	private String message;
 
 	@GetMapping("/api/v1/bu/mca/students")
 	protected List<Student> getAllStudents(HttpServletResponse response) {
-		List<Student> studentResouce = new ArrayList<>();
-	    studentResouce = studentService.getAllStudents();
-	    response.addIntHeader("Total-Records", studentResouce.size());
-	    return studentResouce;
+		List<Student> studentResource = new ArrayList<>();
+	    studentResource = studentService.getAllStudents();
+	    response.addIntHeader("Total-Records", studentResource.size());
+	    return studentResource;
 	}
 	
 	@GetMapping("/api/v1/bu/mca/students/{id}")
@@ -71,5 +72,4 @@ public class StudentController {
 		 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
 	}
 	
-
 }

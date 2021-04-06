@@ -2,37 +2,45 @@ package org.project.restapi.courses;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.project.restapi.department.Department;
 
 @Entity
 public class Course {
 	
-	private String id;
 	@Id
+	@NotNull
+	@Size(min=2, message="Name should have atleast 2 characters")
 	private String courseName;
+	
+	@NotNull
 	private int duration;
-	private String scheme;
+	
+	@NotNull
 	private int yearOfCommencement;
-	private String department;
+	
+	@ManyToOne
+	@JoinColumn(name="department_id")
+	private Department dept; 
+	
 	public Course() {}
-	public Course(String id, String courseName, int duration, String scheme, int yearOfCommencement, String department) {
+	
+	public Course(String courseName, int duration, int yearOfCommencement) {
 		super();
-		this.id = id;
 		this.courseName = courseName;
 		this.duration = duration;
-		this.scheme = scheme;
 		this.yearOfCommencement = yearOfCommencement;
-		this.department = department;
+		
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	
+
 	public String getCourseName() {
 		return courseName;
 	}
+	
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
@@ -42,28 +50,20 @@ public class Course {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	public String getScheme() {
-		return scheme;
-	}
-	public void setScheme(String scheme) {
-		this.scheme = scheme;
-	}
 	public int getYearOfCommencement() {
 		return yearOfCommencement;
 	}
 	public void setYearOfCommencement(int yearOfCommencement) {
 		this.yearOfCommencement = yearOfCommencement;
 	}
-	public String getDepartment() {
-		return department;
+
+	public Department getDept() {
+		return dept;
 	}
-	public void setDepartment(String department) {
-		this.department = department;
+
+	public void setDept(Department dept) {
+		this.dept = dept;
 	}
-	@Override
-	public String toString() {
-		return "Course [id=" + id + ", courseName=" + courseName + ", duration=" + duration + ", Scheme=" + scheme
-				+ ", yearOfCommencement=" + yearOfCommencement + ", department=" + department + "]";
-	}
+
 	
 }
