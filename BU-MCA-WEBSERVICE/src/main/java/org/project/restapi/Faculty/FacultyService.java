@@ -26,16 +26,20 @@ public class FacultyService {
 		return "record not found";
 	}
 
+//	public boolean addFaculty(Faculty faculty) {
+//		try {
+//			if(facultyRepository.findById(faculty.getId()) == null)
+//				facultyRepository.save(faculty);
+//			else
+//				throw new DataIntegrityViolationException("duplicate key");
+//		} catch(DataIntegrityViolationException ex) {
+//			return false;
+//		}
+//		return true;
+//	}
 	public boolean addFaculty(Faculty faculty) {
-		try {
-			if(facultyRepository.findById(faculty.getId()) == null)
 				facultyRepository.save(faculty);
-			else
-				throw new DataIntegrityViolationException("duplicate key");
-		} catch(DataIntegrityViolationException ex) {
-			return false;
-		}
-		return true;
+				return true;
 	}
 
 	public boolean updateFaculty(Faculty faculty, String id) {

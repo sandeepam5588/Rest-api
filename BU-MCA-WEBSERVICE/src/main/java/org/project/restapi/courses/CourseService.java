@@ -27,14 +27,18 @@ public class CourseService {
 	}
 	
     public boolean addCourse(Course course) {
-		try {
-			if(courseRepository.findByCourseName(course.getCourseName()) == null)
-				courseRepository.save(course);
-			else
-				throw new DataIntegrityViolationException("duplicate key");
-		} catch(DataIntegrityViolationException ex) {
-			return false;
-		}
+//		try {
+//			if(courseRepository.findByCourseName(course.getCourseName()) == null)
+//				courseRepository.save(course);
+//			else
+//				throw new DataIntegrityViolationException("duplicate key");
+//		} catch(DataIntegrityViolationException ex) {
+//			return false;
+//		}
+//		return true;
+//	}
+    	
+		courseRepository.save(course);
 		return true;
 	}
 
