@@ -1,7 +1,7 @@
 REST-API development
 building a rest api to provide the services that are provided by a department in the university
 
-#what is this..?
+#what is this Project?
 It is a simple REST API which provides various resource end points to handle the services of a particular department in an institution/college/university.
 
 #what services..?
