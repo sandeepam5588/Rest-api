@@ -16,7 +16,7 @@ search utilities
 
 #what technologies are used to build this application..?
 
-language: Java v15
-framework: spring boot v2.4.2
-database: postgres
-build tool: Maven
+* Language: Java v15
+* Framework: spring boot v2.4.2
+* Database: postgres
+* Build Tool: Maven
